@@ -32,7 +32,9 @@
     html { scroll-behavior: smooth; overflow-x: hidden; }
 
     body {
-      background: var(--bg);
+      background:
+        radial-gradient(circle at 50% 30%, rgba(196,96,122,.06), transparent 60%),
+        var(--bg);
       color: var(--text);
       font-family: var(--font-body);
       font-size: 17px;
@@ -142,9 +144,15 @@
       text-align: center;
       padding: 40px 24px;
       background:
-        radial-gradient(ellipse 80% 60% at 50% 70%, rgba(110,203,255,.13) 0%, transparent 70%),
-        radial-gradient(ellipse 40% 40% at 20% 20%, rgba(110,203,255,.07) 0%, transparent 60%),
+        radial-gradient(ellipse 80% 60% at 50% 70%, rgba(196,96,122,.13) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 20% 20%, rgba(196,96,122,.07) 0%, transparent 60%),
         var(--bg);
+      animation: subtleFloat 12s ease-in-out infinite;
+    }
+
+    @keyframes subtleFloat {
+      0%,100% { background-position: 50% 70%; transform: translateY(0); }
+      50%      { transform: translateY(-6px); }
     }
 
     .portada-eyebrow {
@@ -162,12 +170,13 @@
       font-family: var(--font-display);
       font-size: clamp(42px, 9vw, 92px);
       font-weight: 300;
-      letter-spacing: .04em;
+      letter-spacing: .08em;
       line-height: 1.05;
       color: var(--cream);
       margin-bottom: 12px;
       opacity: 0;
       animation: fadeUp .9s .7s forwards;
+      text-shadow: 0 0 30px rgba(196,96,122,.18);
     }
 
     .portada-nombre span {
@@ -909,10 +918,10 @@
       right: 28px;
       z-index: 998;
       width: 220px;
-      background: rgba(10, 6, 8, 0.82);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border: 1px solid rgba(196, 96, 122, .22);
+      background: rgba(6, 10, 15, .65);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(196, 96, 122, .25);
       border-radius: 14px;
       padding: 14px;
       display: flex;
@@ -920,18 +929,27 @@
       gap: 13px;
       box-shadow:
         0 24px 48px rgba(0,0,0,.55),
-        0 0 0 1px rgba(196,96,122,.08) inset;
+        0 0 0 1px rgba(196,96,122,.06) inset;
       opacity: 0;
       transform: translateY(20px);
       pointer-events: none;
-      transition: opacity .6s cubic-bezier(.4,0,.2,1),
-                  transform .6s cubic-bezier(.4,0,.2,1);
+      transition: opacity .8s cubic-bezier(.4,0,.2,1),
+                  transform .8s cubic-bezier(.4,0,.2,1);
     }
 
     #music-card.visible {
       opacity: 1;
       transform: translateY(0);
       pointer-events: auto;
+    }
+
+    #music-card:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 30px 60px rgba(196,96,122,.18);
+    }
+
+    #music-btn:not(.muted) {
+      box-shadow: 0 0 20px rgba(196,96,122,.35);
     }
 
     #music-card-cover {
