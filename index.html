@@ -845,8 +845,8 @@
     ═══════════════════════════════════════ */
     #music-btn {
       position: fixed;
-      bottom: 28px;
-      right: 28px;
+      bottom: 20px;
+      right: 20px;
       z-index: 999;
       width: 52px;
       height: 52px;
@@ -914,8 +914,8 @@
     ═══════════════════════════════════════ */
     #music-card {
       position: fixed;
-      bottom: 28px;
-      right: 28px;
+      bottom: 80px;
+      right: 24px;
       z-index: 998;
 
       display: flex;
@@ -930,16 +930,21 @@
       -webkit-backdrop-filter: blur(18px);
 
       border: 1px solid rgba(196, 96, 122, .15);
-      box-shadow: 0 20px 40px rgba(0,0,0,.4);
+      box-shadow: 0 10px 25px rgba(0,0,0,.4);
 
       opacity: 0;
+      filter: blur(4px);
       transform: translateY(20px) scale(.98);
       pointer-events: none;
-      transition: all .6s cubic-bezier(.4,0,.2,1);
+      transition:
+        opacity .6s cubic-bezier(.4,0,.2,1),
+        transform .6s cubic-bezier(.4,0,.2,1),
+        filter .6s cubic-bezier(.4,0,.2,1);
     }
 
     #music-card.visible {
       opacity: 1;
+      filter: blur(0px);
       transform: translateY(0) scale(1);
       pointer-events: auto;
     }
@@ -948,8 +953,9 @@
     #music-card.playing {
       animation: breathe 4s ease-in-out infinite;
       box-shadow:
-        0 0 25px rgba(110, 203, 255, .25),
-        0 20px 40px rgba(0,0,0,.4);
+        0 10px 25px rgba(0,0,0,.4),
+        0 0 18px rgba(110, 203, 255, .25),
+        0 8px 30px rgba(110, 203, 255, .15);
     }
 
     @keyframes breathe {
