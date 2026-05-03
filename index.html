@@ -1041,23 +1041,30 @@
       to   { transform: scaleY(1);  opacity: 1;  }
     }
 
-    /* móvil: centrado en la parte inferior */
+    /* móvil: alineado a la derecha */
     @media (max-width: 480px) {
+      #music-btn {
+        bottom: 24px;
+        right: 24px;
+      }
       #music-card {
-        right: 50%;
-        transform: translateX(50%) translateY(20px) scale(.98);
-        width: 200px;
-        bottom: 90px;
+        right: 24px;
+        left: auto;
+        bottom: 24px;
+        width: 220px;
+        max-width: calc(100vw - 48px);
+        transform: translateY(20px) scale(.98);
       }
       #music-card.visible {
-        transform: translateX(50%) translateY(0) scale(1);
+        transform: translateY(0) scale(1);
+        bottom: 92px;
       }
       #music-card.playing {
-        animation: breatheMobile 4s ease-in-out infinite;
+        animation: breatheMobileRight 4s ease-in-out infinite;
       }
-      @keyframes breatheMobile {
-        0%,100% { transform: translateX(50%) translateY(0) scale(1); }
-        50%      { transform: translateX(50%) translateY(-2px) scale(1.01); }
+      @keyframes breatheMobileRight {
+        0%, 100% { transform: translateY(0) scale(1); }
+        50%      { transform: translateY(-2px) scale(1.01); }
       }
     }
 
