@@ -1,25 +1,1610 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Para ti ❤️</title>
-    <style>
-        body {
-            background: #0f0f0f;
-            color: white;
-            font-family: Arial;
-            text-align: center;
-            padding: 50px;
-        }
-        h1 {
-            font-size: 3em;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Yarimar — 20 años</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet"/>
+
+  <style>
+    /* ═══════════════════════════════════════
+       VARIABLES & RESET
+    ═══════════════════════════════════════ */
+    :root {
+      --bg:        #060a10;
+      --bg2:       #09101a;
+      --rose:      #6ecbff;
+      --rose-soft: #9adfff;
+      --rose-pale: #cfefff;
+      --cream:     #edf6ff;
+      --text:      #d0e8f5;
+      --text-dim:  #6a90a8;
+      --gold:      #7ecfff;
+      --font-display: 'Cormorant Garamond', serif;
+      --font-body:    'Lora', serif;
+      --font-sans:    'DM Sans', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 17px;
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    /* ═══════════════════════════════════════
+       NOISE OVERLAY (textura de película)
+    ═══════════════════════════════════════ */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: .025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+    }
+
+    /* ═══════════════════════════════════════
+       PARTÍCULAS DE FONDO
+    ═══════════════════════════════════════ */
+    #particles {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: var(--rose);
+      opacity: 0;
+      animation: floatParticle linear infinite;
+    }
+
+    @keyframes floatParticle {
+      0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+      10%  { opacity: .4; }
+      90%  { opacity: .15; }
+      100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+    }
+
+    /* ═══════════════════════════════════════
+       SCROLL FADE-IN
+    ═══════════════════════════════════════ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity .9s cubic-bezier(.4,0,.2,1), transform .9s cubic-bezier(.4,0,.2,1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+    .reveal-delay-1 { transition-delay: .15s; }
+    .reveal-delay-2 { transition-delay: .3s; }
+    .reveal-delay-3 { transition-delay: .45s; }
+    .reveal-delay-4 { transition-delay: .6s; }
+
+    /* ═══════════════════════════════════════
+       SECCIONES — BASE
+    ═══════════════════════════════════════ */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: clamp(80px, 12vw, 160px) clamp(24px, 8vw, 120px);
+    }
+
+    .section-inner {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    /* línea decorativa */
+    .deco-line {
+      display: block;
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--rose), transparent);
+      margin: 0 auto 40px;
+    }
+
+    .section-tag {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--rose);
+      display: block;
+      margin-bottom: 20px;
+    }
+
+    /* ═══════════════════════════════════════
+       1. PORTADA
+    ═══════════════════════════════════════ */
+    #portada {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 24px;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 70%, rgba(110,203,255,.13) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 20% 20%, rgba(110,203,255,.07) 0%, transparent 60%),
+        var(--bg);
+    }
+
+    .portada-eyebrow {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--rose-soft);
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeUp .8s .4s forwards;
+    }
+
+    .portada-nombre {
+      font-family: var(--font-display);
+      font-size: clamp(42px, 9vw, 92px);
+      font-weight: 300;
+      letter-spacing: .04em;
+      line-height: 1.05;
+      color: var(--cream);
+      margin-bottom: 12px;
+      opacity: 0;
+      animation: fadeUp .9s .7s forwards;
+    }
+
+    .portada-nombre span {
+      display: block;
+      font-style: italic;
+      color: var(--rose-soft);
+    }
+
+    .portada-edad {
+      font-family: var(--font-display);
+      font-size: clamp(14px, 2.5vw, 20px);
+      font-weight: 300;
+      color: var(--text-dim);
+      letter-spacing: .15em;
+      margin-bottom: 48px;
+      opacity: 0;
+      animation: fadeUp .8s 1s forwards;
+    }
+
+    .portada-frase {
+      font-family: var(--font-display);
+      font-size: clamp(20px, 3.5vw, 30px);
+      font-style: italic;
+      font-weight: 300;
+      color: var(--rose-pale);
+      max-width: 540px;
+      line-height: 1.5;
+      margin-bottom: 64px;
+      opacity: 0;
+      animation: fadeUp .8s 1.3s forwards;
+    }
+
+    .btn-comenzar {
+      display: inline-block;
+      padding: 16px 44px;
+      border: 1px solid rgba(110,203,255,.5);
+      color: var(--rose-pale);
+      font-family: var(--font-sans);
+      font-size: 12px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      background: rgba(110,203,255,.06);
+      backdrop-filter: blur(6px);
+      transition: all .4s;
+      cursor: pointer;
+      opacity: 0;
+      animation: fadeUp .8s 1.6s forwards;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-comenzar::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(110,203,255,.12);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .4s;
+    }
+    .btn-comenzar:hover::after { transform: scaleX(1); }
+    .btn-comenzar:hover { border-color: var(--rose); }
+
+    /* flecha scroll */
+    .scroll-arrow {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      opacity: 0;
+      animation: fadeUp .8s 2.2s forwards;
+    }
+    .scroll-arrow span {
+      display: block;
+      width: 1px;
+      height: 50px;
+      background: linear-gradient(to bottom, transparent, var(--rose-soft));
+      animation: scrollPulse 2s infinite;
+    }
+    @keyframes scrollPulse {
+      0%,100% { opacity: .3; } 50% { opacity: 1; }
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+      from { opacity: 0; transform: translateY(24px); }
+    }
+
+    /* ═══════════════════════════════════════
+       2. POEMA PRINCIPAL
+    ═══════════════════════════════════════ */
+    #poema {
+      background:
+        radial-gradient(ellipse 60% 50% at 80% 50%, rgba(110,203,255,.07) 0%, transparent 70%),
+        var(--bg2);
+    }
+
+    .poema-titulo {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 5vw, 54px);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--cream);
+      margin-bottom: 16px;
+      line-height: 1.1;
+    }
+
+    .poema-subtitulo {
+      font-family: var(--font-sans);
+      font-size: 12px;
+      letter-spacing: .2em;
+      color: var(--rose);
+      margin-bottom: 56px;
+      text-transform: uppercase;
+    }
+
+    .poema-texto {
+      font-family: var(--font-display);
+      font-size: clamp(17px, 2.2vw, 22px);
+      font-weight: 300;
+      line-height: 1.95;
+      color: var(--text);
+    }
+
+    .poema-texto p {
+      margin-bottom: 28px;
+    }
+
+    .poema-texto em {
+      color: var(--rose-soft);
+      font-style: italic;
+    }
+
+    .poema-firma {
+      margin-top: 60px;
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-style: italic;
+      color: var(--text-dim);
+      text-align: right;
+    }
+
+    /* ornamento central */
+    .ornamento {
+      text-align: center;
+      margin: 40px 0;
+      font-size: 20px;
+      color: var(--rose);
+      opacity: .5;
+      letter-spacing: .5em;
+    }
+
+    /* ═══════════════════════════════════════
+       3. NUESTRA HISTORIA
+    ═══════════════════════════════════════ */
+    #historia {
+      background: var(--bg);
+    }
+
+    .historia-intro {
+      font-family: var(--font-display);
+      font-size: clamp(18px, 2.5vw, 24px);
+      font-style: italic;
+      color: var(--rose-pale);
+      margin-bottom: 56px;
+      line-height: 1.7;
+    }
+
+    .historia-texto {
+      font-size: 16px;
+      color: var(--text);
+      line-height: 1.9;
+      margin-bottom: 56px;
+    }
+
+    .historia-texto p { margin-bottom: 20px; }
+
+    .fotos-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin: 48px 0;
+    }
+
+    @media (max-width: 560px) {
+      .fotos-grid { grid-template-columns: 1fr; }
+    }
+
+    .foto-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 2px;
+      aspect-ratio: 3/4;
+      background: #0d1525;
+      border: 1px solid rgba(110,203,255,.15);
+    }
+
+    .foto-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 1.1s cubic-bezier(.25,.46,.45,.94);
+      display: block;
+    }
+
+    .foto-item:hover img { transform: scale(1.03); }
+
+    .foto-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(6,10,15,.75) 0%, transparent 55%);
+      pointer-events: none;
+    }
+
+    .foto-caption {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      right: 16px;
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-style: italic;
+      color: var(--rose-pale);
+      line-height: 1.4;
+    }
+
+    .foto-placeholder-icon {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: rgba(110,203,255,.3);
+    }
+    .foto-placeholder-icon svg { width: 32px; height: 32px; }
+    .foto-placeholder-icon span {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: rgba(110,203,255,.35);
+    }
+
+    /* ═══════════════════════════════════════
+       4. MOMENTOS — GALERÍA
+    ═══════════════════════════════════════ */
+    #momentos {
+      background: var(--bg2);
+    }
+
+    .momentos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 48px;
+    }
+
+    @media (max-width: 600px) {
+      .momentos-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .momento-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 2px;
+      aspect-ratio: 1;
+      background: #0a1018;
+      border: 1px solid rgba(110,203,255,.1);
+      cursor: pointer;
+    }
+
+    .momento-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 1.2s cubic-bezier(.25,.46,.45,.94), filter 1s ease;
+      filter: grayscale(.35) brightness(.92);
+      display: block;
+    }
+
+    .momento-item:hover img {
+      transform: scale(1.05);
+      filter: grayscale(0) brightness(1);
+    }
+
+    .momento-item .hover-frase {
+      position: absolute;
+      inset: 0;
+      background: rgba(6,10,15,.72);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity .7s ease;
+      padding: 16px;
+    }
+
+    .momento-item:hover .hover-frase { opacity: 1; }
+
+    .hover-frase p {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-style: italic;
+      color: var(--rose-pale);
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    /* ═══════════════════════════════════════
+       5. CÓMO TE VEO
+    ═══════════════════════════════════════ */
+    #como-te-veo {
+      background:
+        radial-gradient(ellipse 70% 60% at 30% 40%, rgba(110,203,255,.08) 0%, transparent 65%),
+        var(--bg);
+    }
+
+    .ctv-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    @media (max-width: 700px) {
+      .ctv-layout { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    .ctv-texto h2 {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--cream);
+      margin-bottom: 32px;
+      line-height: 1.1;
+    }
+
+    .ctv-texto p {
+      font-size: 16px;
+      line-height: 1.9;
+      color: var(--text);
+      margin-bottom: 18px;
+    }
+
+    .ctv-texto p strong {
+      color: var(--rose-soft);
+      font-weight: 500;
+    }
+
+    .ctv-imagen {
+      position: relative;
+    }
+
+    .ctv-imagen .foto-item {
+      aspect-ratio: 3/4;
+    }
+
+    .ctv-imagen::before {
+      content: '';
+      position: absolute;
+      top: -12px;
+      left: -12px;
+      right: 12px;
+      bottom: 12px;
+      border: 1px solid rgba(110,203,255,.18);
+      border-radius: 2px;
+      pointer-events: none;
+    }
+
+    /* ═══════════════════════════════════════
+       6. MEDICINA
+    ═══════════════════════════════════════ */
+    #medicina {
+      background: var(--bg2);
+      text-align: center;
+    }
+
+    .medicina-titulo {
+      font-family: var(--font-display);
+      font-size: clamp(30px, 5vw, 52px);
+      font-weight: 300;
+      color: var(--cream);
+      margin-bottom: 24px;
+      line-height: 1.15;
+    }
+
+    .medicina-titulo em {
+      font-style: italic;
+      color: var(--rose-soft);
+    }
+
+    .medicina-texto {
+      font-family: var(--font-display);
+      font-size: clamp(17px, 2.3vw, 22px);
+      font-weight: 300;
+      line-height: 1.9;
+      color: var(--text);
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    .medicina-texto p { margin-bottom: 24px; }
+
+    .medicina-pillars {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 64px;
+    }
+
+    @media (max-width: 600px) {
+      .medicina-pillars { grid-template-columns: 1fr; }
+    }
+
+    .pillar {
+      border: 1px solid rgba(110,203,255,.15);
+      padding: 32px 24px;
+      background: rgba(110,203,255,.04);
+    }
+
+    .pillar-num {
+      font-family: var(--font-display);
+      font-size: 40px;
+      font-style: italic;
+      color: rgba(110,203,255,.2);
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    .pillar-titulo {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-style: italic;
+      color: var(--rose-pale);
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    .pillar p {
+      font-family: var(--font-sans);
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--text-dim);
+    }
+
+    /* ═══════════════════════════════════════
+       7b. ESTO ES MÍO (nueva sección)
+    ═══════════════════════════════════════ */
+    #esto-es-mio {
+      background:
+        radial-gradient(ellipse 50% 50% at 60% 30%, rgba(110,203,255,.07) 0%, transparent 70%),
+        var(--bg);
+    }
+
+    .eem-titulo {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 4vw, 46px);
+      font-weight: 300;
+      color: var(--cream);
+      margin-bottom: 40px;
+      line-height: 1.15;
+    }
+
+    .eem-titulo em {
+      font-style: italic;
+      color: var(--rose-soft);
+    }
+
+    .eem-texto {
+      font-family: var(--font-body);
+      font-size: clamp(16px, 2vw, 19px);
+      line-height: 1.95;
+      color: var(--text);
+      max-width: 660px;
+    }
+
+    .eem-texto p {
+      margin-bottom: 22px;
+    }
+
+    .eem-linea-final {
+      margin-top: 40px;
+      padding-left: 24px;
+      border-left: 2px solid rgba(110,203,255,.35);
+      font-family: var(--font-display);
+      font-size: clamp(17px, 2.2vw, 21px);
+      font-style: italic;
+      color: var(--rose-pale);
+      line-height: 1.6;
+    }
+
+    /* ═══════════════════════════════════════
+       7. DEDICATORIA FINAL
+    ═══════════════════════════════════════ */
+    #dedicatoria {
+      background:
+        radial-gradient(ellipse 90% 70% at 50% 100%, rgba(110,203,255,.12) 0%, transparent 60%),
+        var(--bg);
+      text-align: center;
+    }
+
+    .dedicatoria-epig {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-style: italic;
+      color: var(--text-dim);
+      letter-spacing: .05em;
+      margin-bottom: 48px;
+    }
+
+    .dedicatoria-titulo {
+      font-family: var(--font-display);
+      font-size: clamp(34px, 6vw, 68px);
+      font-weight: 300;
+      color: var(--cream);
+      margin-bottom: 48px;
+      line-height: 1.1;
+    }
+
+    .dedicatoria-titulo em {
+      display: block;
+      font-style: italic;
+      color: var(--rose-soft);
+    }
+
+    .dedicatoria-body {
+      font-family: var(--font-display);
+      font-size: clamp(18px, 2.4vw, 24px);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.85;
+      color: var(--text);
+      max-width: 640px;
+      margin: 0 auto 40px;
+    }
+
+    .dedicatoria-firma {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-style: italic;
+      color: var(--rose-soft);
+      margin-top: 48px;
+    }
+
+    /* ═══════════════════════════════════════
+       8. SORPRESA
+    ═══════════════════════════════════════ */
+    #sorpresa {
+      background: var(--bg2);
+      text-align: center;
+      min-height: 80svh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sorpresa-inner {
+      max-width: 600px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .sorpresa-label {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 40px;
+      display: block;
+    }
+
+    .btn-sorpresa {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 20px 52px;
+      background: rgba(110,203,255,.08);
+      border: 1px solid rgba(110,203,255,.4);
+      color: var(--rose-pale);
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-style: italic;
+      cursor: pointer;
+      transition: all .5s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-sorpresa::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(110,203,255,.12), transparent);
+      opacity: 0;
+      transition: opacity .5s;
+    }
+    .btn-sorpresa:hover::before { opacity: 1; }
+    .btn-sorpresa:hover {
+      border-color: var(--rose);
+      transform: translateY(-2px);
+      box-shadow: 0 20px 60px rgba(110,203,255,.18);
+    }
+
+    .sorpresa-corazon {
+      font-size: 18px;
+      animation: latir 1.4s infinite;
+    }
+    @keyframes latir {
+      0%,100% { transform: scale(1); }
+      50%      { transform: scale(1.25); }
+    }
+
+    .mensaje-oculto {
+      display: none;
+      margin-top: 56px;
+      padding: 48px 40px;
+      border: 1px solid rgba(110,203,255,.2);
+      background: rgba(110,203,255,.04);
+      animation: fadeIn .8s forwards;
+    }
+
+    .mensaje-oculto.visible {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    .mensaje-oculto h3 {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--rose-pale);
+      margin-bottom: 32px;
+    }
+
+    .mensaje-oculto p {
+      font-family: var(--font-display);
+      font-size: clamp(17px, 2.2vw, 21px);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.9;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+
+    .confetti-msg {
+      font-size: 28px;
+      margin-top: 32px;
+      display: block;
+      letter-spacing: .3em;
+    }
+
+    /* ═══════════════════════════════════════
+       MÚSICA — BOTÓN FLOTANTE
+    ═══════════════════════════════════════ */
+    #music-btn {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 999;
+      width: 52px;
+      height: 52px;
+      background: rgba(6,10,15,.88);
+      border: 1px solid rgba(110,203,255,.4);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all .35s;
+      backdrop-filter: blur(10px);
+    }
+
+    #music-btn:hover {
+      border-color: var(--rose);
+      box-shadow: 0 0 24px rgba(110,203,255,.28);
+      transform: scale(1.08);
+    }
+
+    #music-btn svg {
+      width: 22px;
+      height: 22px;
+      fill: var(--rose-soft);
+      transition: opacity .3s;
+    }
+
+    #music-btn.muted svg { opacity: .4; }
+
+    .music-pulse {
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 1px solid rgba(110,203,255,.3);
+      animation: musicPulse 2s infinite;
+    }
+    #music-btn.muted .music-pulse { animation: none; opacity: 0; }
+    @keyframes musicPulse {
+      0%   { transform: scale(1); opacity: .6; }
+      100% { transform: scale(1.5); opacity: 0; }
+    }
+
+    /* etiqueta de música */
+    #music-label {
+      position: fixed;
+      bottom: 36px;
+      right: 90px;
+      z-index: 998;
+      font-family: var(--font-sans);
+      font-size: 11px;
+      letter-spacing: .12em;
+      color: var(--text-dim);
+      opacity: 0;
+      animation: fadeInLabel 1s 3s forwards;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    @keyframes fadeInLabel {
+      from { opacity: 0; transform: translateX(8px); }
+      to   { opacity: .7; transform: translateX(0); }
+    }
+
+    /* ═══════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════ */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 40px 24px;
+      border-top: 1px solid rgba(110,203,255,.08);
+      font-family: var(--font-sans);
+      font-size: 12px;
+      color: rgba(110,203,255,.3);
+      letter-spacing: .1em;
+    }
+
+    /* ═══════════════════════════════════════
+       DIVISORES ELEGANTES
+    ═══════════════════════════════════════ */
+    .section-divider {
+      position: relative;
+      z-index: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, rgba(110,203,255,.2) 30%, rgba(110,203,255,.2) 70%, transparent 100%);
+    }
+
+    /* ═══════════════════════════════════════
+       QUOTE HIGHLIGHT
+    ═══════════════════════════════════════ */
+    .quote-highlight {
+      border-left: 2px solid var(--rose);
+      padding: 16px 0 16px 28px;
+      margin: 40px 0;
+    }
+
+    .quote-highlight p {
+      font-family: var(--font-display);
+      font-size: clamp(20px, 3vw, 28px);
+      font-style: italic;
+      font-weight: 300;
+      color: var(--rose-pale);
+      line-height: 1.5;
+    }
+  </style>
 </head>
 <body>
 
-    <h1>Para ti</h1>
-    <p>Esto recién comienza...</p>
+  <!-- PARTÍCULAS -->
+  <div id="particles"></div>
+
+  <!-- MÚSICA -->
+  <audio id="audio" src="musica.mp3" loop></audio>
+
+  <span id="music-label">Activa el sonido</span>
+
+  <button id="music-btn" class="muted" title="Música" aria-label="Activar música">
+    <div class="music-pulse"></div>
+    <!-- Ícono nota musical -->
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M9 18V5l12-2v13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <circle cx="6" cy="18" r="3" fill="currentColor"/>
+      <circle cx="18" cy="16" r="3" fill="currentColor"/>
+    </svg>
+  </button>
+
+  <!-- ══════════════════════════════════════════════
+       1. PORTADA
+  ══════════════════════════════════════════════ -->
+  <section id="portada">
+    <p class="portada-eyebrow">✦ 3 de mayo · Un año y tres meses ✦</p>
+
+    <h1 class="portada-nombre">
+      Yarimar Antonella<br/>
+      <span>Galeno Romero</span>
+    </h1>
+
+    <p class="portada-edad">Veinte años · Una vida que florece</p>
+
+    <p class="portada-frase">
+      "Hay personas que llegan para quedarse en los rincones más silenciosos del alma."
+    </p>
+
+    <a href="#poema" class="btn-comenzar">Comenzar</a>
+
+    <div class="scroll-arrow"><span></span></div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ══════════════════════════════════════════════
+       2. POEMA PRINCIPAL
+  ══════════════════════════════════════════════ -->
+  <section id="poema">
+    <div class="section-inner">
+
+      <span class="section-tag reveal">Poema</span>
+
+      <h2 class="poema-titulo reveal reveal-delay-1">
+        Todo lo que eres<br/>cuando no miras
+      </h2>
+
+      <p class="poema-subtitulo reveal reveal-delay-2">— Para Yarimar, en sus veinte años —</p>
+
+      <div class="poema-texto">
+
+        <p class="reveal">
+          Existe una versión de ti que solo ocurre en los bordes del día,<br/>
+          cuando la mañana todavía no sabe cómo llamarse<br/>
+          y tú ya estás despierta pensando en diagnósticos y en sueños<br/>
+          como si el cuerpo humano fuera un poema que decidiste aprender de memoria.
+        </p>
+
+        <p class="reveal">
+          Eres eso: <em>alguien que estudia lo que late</em>.<br/>
+          Y yo te he visto estudiar también en silencio,<br/>
+          sin libros, sin anatomía —<br/>
+          la forma precisa de cómo sostener a otro sin romperlo.
+        </p>
+
+        <div class="ornamento reveal">✦ ✦ ✦</div>
+
+        <p class="reveal">
+          Han pasado un año y tres meses<br/>
+          y todavía no me acostumbro a tu nombre en mi boca.<br/>
+          Yarimar. Cuatro sílabas que aprendí a pronunciar<br/>
+          antes de aprender a no perderte.
+        </p>
+
+        <p class="reveal">
+          Hay cosas que solo tú haces sin darte cuenta:<br/>
+          leer con los ojos entrecerrados,<br/>
+          reír primero con los ojos,<br/>
+          guardar silencio cuando el silencio es lo único honesto<br/>
+          y llenarlo cuando hace frío.
+        </p>
+
+        <div class="ornamento reveal">✦ ✦ ✦</div>
+
+        <p class="reveal">
+          Te volverás médica. Ya lo eres.<br/>
+          No porque sepas dónde duele el cuerpo<br/>
+          sino porque sabes dónde duele <em>sin necesidad de preguntarlo</em>.<br/>
+          Eso no se enseña. Eso se trae desde adentro.
+        </p>
+
+        <p class="reveal">
+          El mundo va a darte pacientes,<br/>
+          y tú les vas a dar lo que a mí también me das:<br/>
+          la certeza de que alguien te está mirando<br/>
+          con la seriedad suficiente para no desistir.
+        </p>
+
+        <div class="ornamento reveal">✦ ✦ ✦</div>
+
+        <p class="reveal">
+          Hoy cumples veinte años<br/>
+          y yo no sé decirte esto de otra forma:<br/>
+          me alegra que el tiempo haya elegido<br/>
+          que existieras justo ahora,<br/>
+          justo cuando yo también estaba aprendiendo<br/>
+          que el amor no es un refugio —<br/>
+          es un <em>lugar donde decides quedarte</em>.
+        </p>
+
+        <p class="reveal">
+          Feliz cumpleaños, Antonella.<br/>
+          Que este año te sorprenda en tus propios términos,<br/>
+          que la medicina te asombre,<br/>
+          que yo no deje de asombrarte,<br/>
+          y que sigas siendo exactamente<br/>
+          lo que eres cuando nadie te está mirando.
+        </p>
+
+      </div>
+
+      <p class="poema-firma reveal">— Con todo, yo.</p>
+
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ══════════════════════════════════════════════
+       3. NUESTRA HISTORIA
+  ══════════════════════════════════════════════ -->
+  <section id="historia">
+    <div class="section-inner">
+
+      <span class="section-tag reveal">Nuestra historia</span>
+
+      <p class="historia-intro reveal reveal-delay-1">
+        "Hay historias que empiezan antes de que alguien se dé cuenta.<br/>
+        La nuestra comenzó cuando menos lo esperaba."
+      </p>
+
+      <div class="historia-texto reveal">
+        <p>
+          Un año y tres meses parecen poco cuando los cuentas en días,
+          pero son eternos cuando los mides en momentos. En miradas al azar
+          que se volvieron intencionales. En conversaciones que comenzaron
+          sin destino y terminaron en madrugada.
+        </p>
+        <p>
+          Aprendí contigo que el amor tranquilo es el más difícil de explicar
+          y el más fácil de sentir. No hay dramatismo en lo nuestro —
+          hay algo mejor: constancia. La elección diaria, sin fanfarria,
+          de estar.
+        </p>
+        <p>
+          Y aquí seguimos. Cambiando juntos. Tú estudiando el cuerpo humano,
+          yo estudiando el tuyo a través de lo que te alegra,
+          lo que te preocupa, lo que te hace soltar una carcajada a destiempo.
+        </p>
+      </div>
+
+      <!-- FOTOS 1-4 -->
+      <div class="fotos-grid">
+
+        <div class="foto-item reveal reveal-delay-1">
+          <img src="foto1.jpg" alt="Nosotros" onerror="this.style.display='none'"/>
+          <div class="foto-placeholder-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span>foto1.jpg</span>
+          </div>
+          <div class="foto-overlay"></div>
+          <p class="foto-caption">La primera vez que sentí que todo encajaba</p>
+        </div>
+
+        <div class="foto-item reveal reveal-delay-2">
+          <img src="foto2.jpg" alt="Nosotros" onerror="this.style.display='none'"/>
+          <div class="foto-placeholder-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span>foto2.jpg</span>
+          </div>
+          <div class="foto-overlay"></div>
+          <p class="foto-caption">De esos días que uno guarda sin avisarle a nadie</p>
+        </div>
+
+        <div class="foto-item reveal reveal-delay-3">
+          <img src="foto3.jpg" alt="Nosotros" onerror="this.style.display='none'"/>
+          <div class="foto-placeholder-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span>foto3.jpg</span>
+          </div>
+          <div class="foto-overlay"></div>
+          <p class="foto-caption">Acá todavía pienso en lo que estabas pensando</p>
+        </div>
+
+        <div class="foto-item reveal reveal-delay-4">
+          <img src="foto4.jpg" alt="Nosotros" onerror="this.style.display='none'"/>
+          <div class="foto-placeholder-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span>foto4.jpg</span>
+          </div>
+          <div class="foto-overlay"></div>
+          <p class="foto-caption">Sin hacer nada. Y fue suficiente.</p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ══════════════════════════════════════════════
+       4. MOMENTOS — GALERÍA
+  ══════════════════════════════════════════════ -->
+  <section id="momentos">
+    <div class="section-inner">
+
+      <span class="section-tag reveal">Momentos</span>
+      <span class="deco-line reveal reveal-delay-1"></span>
+
+      <h2 class="reveal reveal-delay-2" style="font-family:var(--font-display);font-size:clamp(28px,4vw,44px);font-weight:300;font-style:italic;color:var(--cream);margin-bottom:12px;">
+        Los que guardo
+      </h2>
+      <p class="reveal reveal-delay-3" style="color:var(--text-dim);font-family:var(--font-sans);font-size:13px;letter-spacing:.1em;">
+        Pasa el cursor sobre cada imagen
+      </p>
+
+      <div class="momentos-grid">
+
+        <div class="momento-item reveal">
+          <img src="foto5.jpg" alt="Momento" onerror="this.style.display='none'; this.parentNode.style.background='#1a0f13'"/>
+          <div class="hover-frase"><p>Las risas que nunca planeamos</p></div>
+        </div>
+
+        <div class="momento-item reveal reveal-delay-1">
+          <img src="foto6.jpg" alt="Momento" onerror="this.style.display='none'; this.parentNode.style.background='#1a0f13'"/>
+          <div class="hover-frase"><p>Cuando el mundo se pone chico y solo estás tú</p></div>
+        </div>
+
+        <div class="momento-item reveal reveal-delay-2">
+          <img src="foto7.jpg" alt="Momento" onerror="this.style.display='none'; this.parentNode.style.background='#1a0f13'"/>
+          <div class="hover-frase"><p>Ese momento quieto que no necesitó palabras</p></div>
+        </div>
+
+        <div class="momento-item reveal reveal-delay-3">
+          <img src="foto8.jpg" alt="Momento" onerror="this.style.display='none'; this.parentNode.style.background='#1a0f13'"/>
+          <div class="hover-frase"><p>Tú siendo exactamente tú misma</p></div>
+        </div>
+
+        <div class="momento-item reveal reveal-delay-4">
+          <img src="foto9.jpg" alt="Momento" onerror="this.style.display='none'; this.parentNode.style.background='#1a0f13'"/>
+          <div class="hover-frase"><p>El que más atesoro sin saber por qué</p></div>
+        </div>
+
+        <div class="momento-item reveal">
+          <img src="foto10.jpg" alt="Momento" onerror="this.style.display='none'; this.parentNode.style.background='#1a0f13'"/>
+          <div class="hover-frase"><p>Nuestro favorito, aunque no lo hayamos dicho</p></div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ══════════════════════════════════════════════
+       5. CÓMO TE VEO
+  ══════════════════════════════════════════════ -->
+  <section id="como-te-veo">
+    <div class="section-inner">
+
+      <span class="section-tag reveal">Cómo te veo</span>
+
+      <div class="ctv-layout">
+        <div class="ctv-texto">
+          <h2 class="reveal">Lo que veo<br/>cuando te miro</h2>
+
+          <p class="reveal reveal-delay-1">
+            Te veo como alguien que lleva el mundo adentro
+            pero no lo muestra si no confía.<br/>
+            <strong>Eso me lo ganaste tú.</strong>
+          </p>
+
+          <p class="reveal reveal-delay-2">
+            Te veo en los detalles. En cómo lees algo y frunces apenas el ceño.
+            En cómo escuchas antes de responder. En cómo las cosas que importan
+            para ti importan con una profundidad que asusta y enamora al mismo tiempo.
+          </p>
+
+          <p class="reveal reveal-delay-3">
+            Te veo <strong>más grande que el miedo que a veces tienes</strong>.
+            Más capaz que las dudas que te visitan tarde en la noche.
+            Más hermosa de lo que crees en los días que no te convences.
+          </p>
+
+          <div class="quote-highlight reveal reveal-delay-4">
+            <p>"Eres de esas personas raras que hacen que el mundo se sienta menos raro."</p>
+          </div>
+        </div>
+
+        <div class="ctv-imagen reveal reveal-delay-2">
+          <div class="foto-item">
+            <img src="dibujo1.png" alt="Ilustración" onerror="this.style.display='none'"/>
+            <div class="foto-placeholder-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+              <span>dibujo1.png</span>
+            </div>
+            <div class="foto-overlay"></div>
+            <p class="foto-caption" style="bottom:20px;">— ella —</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ══════════════════════════════════════════════
+       6. MEDICINA
+  ══════════════════════════════════════════════ -->
+  <section id="medicina">
+    <div class="section-inner">
+
+      <span class="section-tag reveal">Medicina</span>
+      <span class="deco-line reveal reveal-delay-1"></span>
+
+      <h2 class="medicina-titulo reveal reveal-delay-2">
+        Estudias el cuerpo humano.<br/>
+        <em>Pero ya sabes curar</em><br/>
+        lo que no aparece en los libros.
+      </h2>
+
+      <div class="medicina-texto reveal reveal-delay-3">
+        <p>
+          Galeno de Pérgamo vivió en el siglo II y dedicó su vida entera
+          a entender el cuerpo humano. Lo citaron durante mil años.
+          Lo llamaron el médico de los médicos.<br/>
+          Y tú llevas su apellido sin haberlo buscado.
+        </p>
+        <p>
+          No creo en las coincidencias.<br/>
+          Creo que hay nombres que pesan de cierta manera,
+          que orientan sin que uno lo sepa,
+          que llegan antes que la vocación para abrirle el camino.
+        </p>
+        <p>
+          Antes de que supieras el nombre técnico de cada hueso,
+          ya tenías el instinto de no romperlos. El tuyo es un cuidado
+          que no viene del estudio —<br/> viene de quien eres.
+          Y de quién siempre fuiste.
+        </p>
+        <p>
+          La medicina te va a dar herramientas.<br/>
+          Pero tú ya llegaste con el don de escuchar
+          lo que el otro no puede decir todavía.<br/>
+          Eso, Yarimar <em>Galeno</em>, no se aprende.<br/>
+          Se hereda. Se lleva. Se es.
+        </p>
+      </div>
+
+      <div class="medicina-pillars">
+        <div class="pillar reveal">
+          <span class="pillar-num">01</span>
+          <span class="pillar-titulo">El diagnóstico imposible</span>
+          <p>Lograste algo que ningún libro describe: encontrar lo que me faltaba
+          antes de que yo supiera nombrarlo.</p>
+        </div>
+
+        <div class="pillar reveal reveal-delay-1">
+          <span class="pillar-num">02</span>
+          <span class="pillar-titulo">La medicación exacta</span>
+          <p>No me diste nada de más. Solo lo necesario: presencia,
+          honestidad, y esa rara forma tuya de quedarte.</p>
+        </div>
+
+        <div class="pillar reveal reveal-delay-2">
+          <span class="pillar-num">03</span>
+          <span class="pillar-titulo">El alta médica que no llega</span>
+          <p>Dicen que el objetivo es que el paciente se recupere y se vaya.
+          Contigo prefiero quedarme internado.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ══════════════════════════════════════════════
+       7b. ESTO ES MÍO
+  ══════════════════════════════════════════════ -->
+  <section id="esto-es-mio">
+    <div class="section-inner">
+
+      <span class="section-tag reveal">Esto es mío</span>
+
+      <h2 class="eem-titulo reveal reveal-delay-1">
+        No sé decir esto de otra forma,<br/>
+        así que lo digo <em>sin adornos.</em>
+      </h2>
+
+      <div class="eem-texto reveal reveal-delay-2">
+        <p>
+          Hay cosas que contigo simplemente se sienten más fáciles.
+          No porque las resuelvas —
+          sino porque cuando estás, el peso se reparte diferente.
+          Eso no lo hace cualquiera. Eso lo haces tú.
+        </p>
+        <p>
+          Me gusta que seas directa cuando hay que serlo
+          y callada cuando el silencio es lo más honesto.
+          Me gusta que no finges que todo está bien cuando no lo está,
+          y que tampoco te hundes. Te sostienes, y eso me sostiene a mí también.
+        </p>
+        <p>
+          Esto — lo que tenemos — es mío en el sentido de que lo cuido
+          y lo elijo, no en el sentido de que te pertenezco ni tú a mí.
+          Es mío porque lo valoro. Porque sé lo que vale.
+        </p>
+
+        <div class="eem-linea-final">
+          Eres de esas pocas cosas en la vida<br/>
+          que no necesitan más explicación que existir.
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ══════════════════════════════════════════════
+       7. DEDICATORIA FINAL
+  ══════════════════════════════════════════════ -->
+  <section id="dedicatoria">
+    <div class="section-inner" style="text-align:center;">
+
+      <p class="dedicatoria-epig reveal">
+        — Inspirado en la idea de que algunas personas merecen más de un final feliz —
+      </p>
+
+      <h2 class="dedicatoria-titulo reveal reveal-delay-1">
+        Si el tiempo<br/>
+        <em>volviera a empezar,</em><br/>
+        elegiría el mismo comienzo.
+      </h2>
+
+      <div class="dedicatoria-body reveal reveal-delay-2">
+        <p>
+          Hay películas que terminan y uno no sabe si llorar o agradecer.
+          Lo nuestro se parece a eso: algo que no quieres que pare,
+          aunque sepas que seguir requiere valentía.
+        </p>
+        <p>
+          Tú eres el tipo de persona por quien uno haría el viaje
+          aunque no supiera el destino. El tipo de amor que
+          no necesita explicación porque se siente en los márgenes,
+          en lo que no se dice pero se entiende.
+        </p>
+        <p>
+          Hoy cumples veinte años. Y yo quiero que sepas
+          que mientras tú estés construyendo la persona que vas a ser,
+          yo voy a estar aquí: siendo testigo, siendo refugio,
+          siendo tuyo en la medida en que me dejes.
+        </p>
+        <p>
+          Gracias por existir con tanta intensidad discreta.
+          Por ser todo lo que eres sin pedirle permiso a nadie.
+        </p>
+      </div>
+
+      <p class="dedicatoria-firma reveal reveal-delay-3">
+        Con todo lo que soy,<br/>para todo lo que serás.
+      </p>
+
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ══════════════════════════════════════════════
+       8. SORPRESA FINAL
+  ══════════════════════════════════════════════ -->
+  <section id="sorpresa">
+    <div class="sorpresa-inner">
+
+      <span class="section-tag reveal" style="display:block;margin-bottom:16px;">Hay algo más</span>
+
+      <span class="sorpresa-label reveal reveal-delay-1">Solo para ti · Solo hoy</span>
+
+      <button class="btn-sorpresa reveal reveal-delay-2" id="btn-sorpresa" onclick="mostrarSorpresa()">
+        <span class="sorpresa-corazon">♡</span>
+        Abrir mi mensaje
+      </button>
+
+      <div class="mensaje-oculto" id="mensaje-oculto">
+        <h3>Lo que nunca supe cómo decirte</h3>
+
+        <p>
+          Hay cosas que uno guarda porque no sabe si el momento es el correcto.
+          Pero hoy, en tu día, quiero que sepas esto:
+        </p>
+        <p>
+          Me haces mejor. No porque me hayas cambiado —
+          sino porque contigo me doy el permiso de ser más honesto,
+          más tranquilo, más yo. Eso no lo había sentido antes.
+        </p>
+        <p>
+          Estoy orgulloso de ti. De que elijas la medicina cuando es difícil.
+          De que sigas aunque agotes. De que seas tan completamente tú misma
+          que a veces me deja sin palabras.
+        </p>
+        <p>
+          Te quiero, Yarimar. No solo hoy porque es tu cumpleaños.
+          Te quiero en los días ordinarios, en los días difíciles,
+          en los que no tenemos nada que hacer y ese nada se convierte en todo.
+        </p>
+        <p>
+          Gracias por elegirme también.
+        </p>
+
+        <span class="confetti-msg">🩵 ✦ Feliz cumpleaños ✦ 🩵</span>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <p>Hecho con amor · Para Yarimar · 20 años · 3 de mayo</p>
+  </footer>
+
+  <!-- ═══════════════════════════════════════
+       JAVASCRIPT
+  ═══════════════════════════════════════ -->
+  <script>
+    /* ── PARTÍCULAS ── */
+    (function() {
+      const container = document.getElementById('particles');
+      const count = window.innerWidth < 600 ? 18 : 32;
+
+      for (let i = 0; i < count; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+
+        const size = Math.random() * 4 + 1;
+        const left = Math.random() * 100;
+        const duration = Math.random() * 20 + 15;
+        const delay = Math.random() * 20;
+        const opacity = Math.random() * .5 + .1;
+
+        p.style.cssText = `
+          width:${size}px;
+          height:${size}px;
+          left:${left}%;
+          animation-duration:${duration}s;
+          animation-delay:-${delay}s;
+          opacity:${opacity};
+        `;
+        container.appendChild(p);
+      }
+    })();
+
+    /* ── SCROLL REVEAL ── */
+    (function() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    })();
+
+    /* ── MÚSICA ── */
+    (function() {
+      const audio = document.getElementById('audio');
+      const btn   = document.getElementById('music-btn');
+      let playing = false;
+
+      audio.volume = 0.35;
+
+      btn.addEventListener('click', () => {
+        if (playing) {
+          audio.pause();
+          btn.classList.add('muted');
+        } else {
+          audio.play().catch(() => {});
+          btn.classList.remove('muted');
+        }
+        playing = !playing;
+      });
+    })();
+
+    /* ── SORPRESA ── */
+    function mostrarSorpresa() {
+      const msg = document.getElementById('mensaje-oculto');
+      const btn = document.getElementById('btn-sorpresa');
+
+      if (msg.classList.contains('visible')) return;
+
+      msg.classList.add('visible');
+      btn.style.opacity = '0';
+      btn.style.pointerEvents = 'none';
+      btn.style.transition = 'opacity .4s';
+
+      // confetti suave (puntos azul cielo)
+      lanzarConfetti();
+    }
+
+    function lanzarConfetti() {
+      const colors = ['#6ecbff', '#9adfff', '#cfefff', '#7ecfff', '#ffffff'];
+      for (let i = 0; i < 80; i++) {
+        setTimeout(() => {
+          const dot = document.createElement('div');
+          const size = Math.random() * 8 + 4;
+          dot.style.cssText = `
+            position:fixed;
+            top:-10px;
+            left:${Math.random()*100}vw;
+            width:${size}px;
+            height:${size}px;
+            border-radius:50%;
+            background:${colors[Math.floor(Math.random()*colors.length)]};
+            opacity:1;
+            z-index:9999;
+            pointer-events:none;
+            transition: top 2.5s cubic-bezier(.25,.46,.45,.94), opacity 2s 0.5s;
+          `;
+          document.body.appendChild(dot);
+
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              dot.style.top = `${80 + Math.random() * 40}vh`;
+              dot.style.opacity = '0';
+            });
+          });
+
+          setTimeout(() => dot.remove(), 3000);
+        }, i * 30);
+      }
+    }
+
+    /* ── BOTÓN COMENZAR: scroll suave ── */
+    document.querySelector('.btn-comenzar')?.addEventListener('click', function(e) {
+      e.preventDefault();
+      document.getElementById('poema')?.scrollIntoView({ behavior: 'smooth' });
+    });
+  </script>
 
 </body>
 </html>
