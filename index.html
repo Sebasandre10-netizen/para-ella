@@ -901,6 +901,117 @@
     }
 
     /* ═══════════════════════════════════════
+       TARJETA DE MÚSICA
+    ═══════════════════════════════════════ */
+    #music-card {
+      position: fixed;
+      bottom: 96px;
+      right: 28px;
+      z-index: 998;
+      width: 220px;
+      background: rgba(10, 6, 8, 0.82);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(196, 96, 122, .22);
+      border-radius: 14px;
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      box-shadow:
+        0 24px 48px rgba(0,0,0,.55),
+        0 0 0 1px rgba(196,96,122,.08) inset;
+      opacity: 0;
+      transform: translateY(20px);
+      pointer-events: none;
+      transition: opacity .6s cubic-bezier(.4,0,.2,1),
+                  transform .6s cubic-bezier(.4,0,.2,1);
+    }
+
+    #music-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    #music-card-cover {
+      width: 48px;
+      height: 48px;
+      border-radius: 8px;
+      object-fit: cover;
+      flex-shrink: 0;
+      background: #1a0f13;
+      border: 1px solid rgba(196,96,122,.15);
+      display: block;
+    }
+
+    .music-card-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .music-card-title {
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--cream);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 3px;
+    }
+
+    .music-card-artist {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      color: var(--rose-soft);
+      letter-spacing: .04em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* barras de ecualizador animadas */
+    .music-eq {
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    .music-eq span {
+      display: block;
+      width: 3px;
+      border-radius: 2px;
+      background: var(--rose);
+      animation: eqBar .9s ease-in-out infinite alternate;
+    }
+
+    .music-eq span:nth-child(1) { height: 6px;  animation-delay: 0s;    animation-duration: .7s; }
+    .music-eq span:nth-child(2) { height: 14px; animation-delay: .15s;  animation-duration: .9s; }
+    .music-eq span:nth-child(3) { height: 9px;  animation-delay: .3s;   animation-duration: .6s; }
+    .music-eq span:nth-child(4) { height: 14px; animation-delay: .05s;  animation-duration: .8s; }
+
+    @keyframes eqBar {
+      from { transform: scaleY(.2); opacity: .5; }
+      to   { transform: scaleY(1);  opacity: 1;  }
+    }
+
+    /* en móvil: centrado y un poco más pequeño */
+    @media (max-width: 480px) {
+      #music-card {
+        right: 50%;
+        transform: translateX(50%) translateY(20px);
+        width: 200px;
+        bottom: 90px;
+      }
+      #music-card.visible {
+        transform: translateX(50%) translateY(0);
+      }
+    }
+
+    /* ═══════════════════════════════════════
        FOOTER
     ═══════════════════════════════════════ */
     footer {
@@ -963,6 +1074,19 @@
       <circle cx="18" cy="16" r="3" fill="currentColor"/>
     </svg>
   </button>
+
+  <!-- TARJETA DE MÚSICA -->
+  <div id="music-card" role="status" aria-live="polite" aria-label="Reproduciendo">
+    <img id="music-card-cover" src="cover.jpg" alt="Portada del álbum"
+         onerror="this.style.background='#2a1520'; this.removeAttribute('src')"/>
+    <div class="music-card-info">
+      <p class="music-card-title">Aprender a quererte</p>
+      <p class="music-card-artist">Morat</p>
+    </div>
+    <div class="music-eq" aria-hidden="true">
+      <span></span><span></span><span></span><span></span>
+    </div>
+  </div>
 
   <!-- ══════════════════════════════════════════════
        1. PORTADA
@@ -1534,6 +1658,7 @@
     (function() {
       const audio = document.getElementById('audio');
       const btn   = document.getElementById('music-btn');
+      const card  = document.getElementById('music-card');
       let playing = false;
 
       audio.volume = 0.35;
@@ -1542,9 +1667,11 @@
         if (playing) {
           audio.pause();
           btn.classList.add('muted');
+          card.classList.remove('visible');
         } else {
           audio.play().catch(() => {});
           btn.classList.remove('muted');
+          card.classList.add('visible');
         }
         playing = !playing;
       });
