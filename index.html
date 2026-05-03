@@ -914,76 +914,93 @@
     ═══════════════════════════════════════ */
     #music-card {
       position: fixed;
-      bottom: 96px;
+      bottom: 28px;
       right: 28px;
       z-index: 998;
-      width: 220px;
-      background: rgba(6, 10, 15, .65);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(196, 96, 122, .25);
-      border-radius: 14px;
-      padding: 14px;
+
       display: flex;
       align-items: center;
-      gap: 13px;
-      box-shadow:
-        0 24px 48px rgba(0,0,0,.55),
-        0 0 0 1px rgba(196,96,122,.06) inset;
+      gap: 14px;
+
+      padding: 10px 14px;
+      border-radius: 16px;
+
+      background: rgba(6, 10, 15, .55);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+
+      border: 1px solid rgba(196, 96, 122, .15);
+      box-shadow: 0 20px 40px rgba(0,0,0,.4);
+
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(20px) scale(.98);
       pointer-events: none;
-      transition: opacity .8s cubic-bezier(.4,0,.2,1),
-                  transform .8s cubic-bezier(.4,0,.2,1);
+      transition: all .6s cubic-bezier(.4,0,.2,1);
     }
 
     #music-card.visible {
       opacity: 1;
-      transform: translateY(0);
+      transform: translateY(0) scale(1);
       pointer-events: auto;
     }
 
+    /* respiración suave cuando está sonando */
+    #music-card.playing {
+      animation: breathe 4s ease-in-out infinite;
+      box-shadow:
+        0 0 25px rgba(110, 203, 255, .25),
+        0 20px 40px rgba(0,0,0,.4);
+    }
+
+    @keyframes breathe {
+      0%,100% { transform: translateY(0) scale(1); }
+      50%      { transform: translateY(-2px) scale(1.01); }
+    }
+
     #music-card:hover {
-      transform: translateY(-4px) scale(1.02);
-      box-shadow: 0 30px 60px rgba(196,96,122,.18);
+      border-color: rgba(196, 96, 122, .3);
+      box-shadow:
+        0 0 30px rgba(196, 96, 122, .15),
+        0 28px 56px rgba(0,0,0,.5);
     }
 
-    #music-btn:not(.muted) {
-      box-shadow: 0 0 20px rgba(196,96,122,.35);
-    }
-
+    /* portada del álbum */
     #music-card-cover {
       width: 48px;
       height: 48px;
-      border-radius: 8px;
+      border-radius: 10px;
       object-fit: cover;
       flex-shrink: 0;
       background: #1a0f13;
-      border: 1px solid rgba(196,96,122,.15);
       display: block;
+      box-shadow: 0 8px 18px rgba(0,0,0,.5);
+      filter: saturate(1.05) contrast(1.05);
     }
 
+    /* info textual */
     .music-card-info {
       flex: 1;
       min-width: 0;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
     }
 
     .music-card-title {
       font-family: var(--font-sans);
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 400;
-      color: var(--cream);
+      color: #eaf6ff;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      margin-bottom: 3px;
+      margin-bottom: 4px;
     }
 
     .music-card-artist {
       font-family: var(--font-sans);
       font-size: 11px;
-      color: var(--rose-soft);
-      letter-spacing: .04em;
+      color: rgba(255,255,255,.5);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -1002,7 +1019,7 @@
       display: block;
       width: 3px;
       border-radius: 2px;
-      background: var(--rose);
+      background: var(--rose-soft);
       animation: eqBar .9s ease-in-out infinite alternate;
     }
 
@@ -1012,20 +1029,27 @@
     .music-eq span:nth-child(4) { height: 14px; animation-delay: .05s;  animation-duration: .8s; }
 
     @keyframes eqBar {
-      from { transform: scaleY(.2); opacity: .5; }
+      from { transform: scaleY(.2); opacity: .4; }
       to   { transform: scaleY(1);  opacity: 1;  }
     }
 
-    /* en móvil: centrado y un poco más pequeño */
+    /* móvil: centrado en la parte inferior */
     @media (max-width: 480px) {
       #music-card {
         right: 50%;
-        transform: translateX(50%) translateY(20px);
+        transform: translateX(50%) translateY(20px) scale(.98);
         width: 200px;
         bottom: 90px;
       }
       #music-card.visible {
-        transform: translateX(50%) translateY(0);
+        transform: translateX(50%) translateY(0) scale(1);
+      }
+      #music-card.playing {
+        animation: breatheMobile 4s ease-in-out infinite;
+      }
+      @keyframes breatheMobile {
+        0%,100% { transform: translateX(50%) translateY(0) scale(1); }
+        50%      { transform: translateX(50%) translateY(-2px) scale(1.01); }
       }
     }
 
@@ -1678,18 +1702,28 @@
       const btn   = document.getElementById('music-btn');
       const card  = document.getElementById('music-card');
       let playing = false;
+      let cardTimer = null;
 
       audio.volume = 0.35;
 
       btn.addEventListener('click', () => {
         if (playing) {
+          // pausa: ocultar tarjeta de inmediato
           audio.pause();
           btn.classList.add('muted');
+          clearTimeout(cardTimer);
+          card.classList.remove('playing');
           card.classList.remove('visible');
         } else {
+          // play: audio arranca → 300ms → aparece tarjeta (cinematográfico)
           audio.play().catch(() => {});
           btn.classList.remove('muted');
-          card.classList.add('visible');
+          clearTimeout(cardTimer);
+          cardTimer = setTimeout(() => {
+            card.classList.add('visible');
+            // segunda clase "playing" tras la entrada
+            setTimeout(() => card.classList.add('playing'), 900);
+          }, 300);
         }
         playing = !playing;
       });
