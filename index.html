@@ -845,8 +845,8 @@
     ═══════════════════════════════════════ */
     #music-btn {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
+      bottom: 28px;
+      right: 28px;
       z-index: 999;
       width: 52px;
       height: 52px;
@@ -914,8 +914,8 @@
     ═══════════════════════════════════════ */
     #music-card {
       position: fixed;
-      bottom: 80px;
-      right: 24px;
+      bottom: 28px;
+      right: 28px;
       z-index: 998;
 
       display: flex;
@@ -939,7 +939,8 @@
       transition:
         opacity .6s cubic-bezier(.4,0,.2,1),
         transform .6s cubic-bezier(.4,0,.2,1),
-        filter .6s cubic-bezier(.4,0,.2,1);
+        filter .6s cubic-bezier(.4,0,.2,1),
+        bottom .6s cubic-bezier(.4,0,.2,1);
     }
 
     #music-card.visible {
@@ -947,6 +948,7 @@
       filter: blur(0px);
       transform: translateY(0) scale(1);
       pointer-events: auto;
+      bottom: 90px;
     }
 
     /* respiración suave cuando está sonando */
